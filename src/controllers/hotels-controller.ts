@@ -1,7 +1,8 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import httpStatus from "http-status";
+import { AuthenticatedRequest } from "@/middlewares";
 
-export async function getAllHotels(_req: Request, res: Response) {
+export async function getAllHotels(req: AuthenticatedRequest, res: Response) {
   try {
     const hotels = await hotelsService.getAllHotels();
     return res.status(httpStatus.OK).send(hotels);
@@ -10,8 +11,8 @@ export async function getAllHotels(_req: Request, res: Response) {
   }
 }
 
-export async function getHotelRooms(_req: Request, res: Response) {
-  const { hotelId } = _req.params;
+export async function getHotelRooms(req: AuthenticatedRequest, res: Response) {
+  const { hotelId } = req.params;
   try {
     const hotel = await hotelsService.getHotelRooms(hotelId);
     return res.status(httpStatus.OK).send(hotel);

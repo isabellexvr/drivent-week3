@@ -8,7 +8,7 @@ export async function getAllHotels(req: AuthenticatedRequest, res: Response) {
     const hotels = await hotelsService.getAllHotels();
     return res.status(httpStatus.OK).send(hotels);
   } catch (error) {
-    return res.sendStatus(httpStatus.NO_CONTENT);
+    return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }
 
@@ -18,6 +18,6 @@ export async function getHotelRooms(req: AuthenticatedRequest, res: Response) {
     const hotel = await hotelsService.getHotelRooms(Number(hotelId));
     return res.status(httpStatus.OK).send(hotel);
   } catch (error) {
-    return res.sendStatus(httpStatus.NO_CONTENT);
+    return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }

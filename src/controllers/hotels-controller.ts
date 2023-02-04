@@ -19,4 +19,3 @@ export async function getHotelRooms(_req: Request, res: Response) {
     return res.sendStatus(httpStatus.NO_CONTENT);
   }
 }
-

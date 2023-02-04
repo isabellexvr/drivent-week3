@@ -1,6 +1,7 @@
 import { Response } from "express";
 import httpStatus from "http-status";
 import { AuthenticatedRequest } from "@/middlewares";
+import hotelsService from "@/services/hotels-service";
 
 export async function getAllHotels(req: AuthenticatedRequest, res: Response) {
   try {
@@ -14,7 +15,7 @@ export async function getAllHotels(req: AuthenticatedRequest, res: Response) {
 export async function getHotelRooms(req: AuthenticatedRequest, res: Response) {
   const { hotelId } = req.params;
   try {
-    const hotel = await hotelsService.getHotelRooms(hotelId);
+    const hotel = await hotelsService.getHotelRooms(Number(hotelId));
     return res.status(httpStatus.OK).send(hotel);
   } catch (error) {
     return res.sendStatus(httpStatus.NO_CONTENT);

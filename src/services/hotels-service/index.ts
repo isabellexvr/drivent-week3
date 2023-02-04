@@ -1,6 +1,6 @@
-import { notFoundError } from '@/errors';
-import { hotelsRouter } from '@/routers';
+import { notFoundError } from "@/errors";
 import { Hotel } from "@prisma/client";
+import hotelsRepository from "@/repositories/hotels-repository";
 
 async function getAllHotels(): Promise<Hotel[]> {
   const hotels = await hotelsRepository.getAll();
@@ -17,8 +17,15 @@ type HotelRooms = Hotel & {
     updatedAt: Date
   }
 
-async function getHotelRooms(hotelId: number): Promise<HotelRooms> {
+async function getHotelRooms(hotelId: number) {
   const hotelRooms = await hotelsRepository.getSpecific(hotelId);
   if(!hotelRooms) throw notFoundError();
   return hotelRooms;
 }
+
+const hotelsService = {
+  getAllHotels,
+  getHotelRooms
+};
+
+export default hotelsService;

@@ -14,16 +14,35 @@ type HotelRooms = Hotel & {
     updatedAt: Date
   }
 
-async function getSpecific(hotelId: number) {
+async function getSpecificWithRooms(hotelId: number) {
   return prisma.hotel.findFirst({
     include: { Rooms: true },
     where: { id: hotelId }
   });
 }
 
+async function getEnrolledUser(userId: number) {
+  return prisma.enrollment.findFirst({
+    where: { userId },
+    include: { Ticket: { 
+      select: { 
+        status: true, 
+        TicketType: {
+          select: { 
+            includesHotel: true,
+            isRemote: true
+          }
+        }
+      }
+    }
+    }
+  });
+}
+
 const hotelsRepository = {
   getAll,
-  getSpecific
+  getSpecificWithRooms,
+  getEnrolledUser
 };
 
 export default hotelsRepository;

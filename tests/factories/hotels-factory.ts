@@ -14,9 +14,21 @@ export function createHotel(): Prisma.Prisma__HotelClient<Hotel> {
   });
 }
 
-export function createRoom( hotelId: number ): PrismaPromise<Prisma.BatchPayload> {
+export function createRooms( hotelId: number ): PrismaPromise<Prisma.BatchPayload> {
   return prisma.room.createMany({
     data: [
+      {
+        name: faker.name.findName(),
+        capacity: faker.datatype.number(),
+        hotelId,
+        updatedAt: dayjs().toDate()
+      },
+      {
+        name: faker.name.findName(),
+        capacity: faker.datatype.number(),
+        hotelId,
+        updatedAt: dayjs().toDate()
+      },
       {
         name: faker.name.findName(),
         capacity: faker.datatype.number(),

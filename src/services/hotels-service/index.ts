@@ -6,7 +6,6 @@ import { paymentRequiredError } from "@/errors/payment-required-error";
 async function getAllHotels(userId: number): Promise<Hotel[]> {
   await checkEnrollment(userId);
   const hotels = await hotelsRepository.getAll();
-  console.log(hotels)
   if(!hotels) throw notFoundError();
   return hotels;
 }
@@ -21,7 +20,6 @@ async function getHotelRooms(hotelId: number, userId: number) {
 async function checkEnrollment(userId: number) {
   const user = await hotelsRepository.getEnrolledUser(userId);
   if(!user) throw notFoundError();
-  console.log(user)
   if(!user.Ticket[0]) throw paymentRequiredError();
   if( user.Ticket[0].status === "RESERVED" || user.Ticket[0].TicketType.isRemote || !user.Ticket[0].TicketType.includesHotel ) throw paymentRequiredError();
 }

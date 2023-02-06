@@ -39,6 +39,7 @@ export async function createTicket(req: AuthenticatedRequest, res: Response) {
 
     return res.status(httpStatus.CREATED).send(ticketTypes);
   } catch (error) {
+    console.log(error)
     return res.sendStatus(httpStatus.NOT_FOUND);
   }
 }
